@@ -104,24 +104,20 @@ namespace Black_Magic
             Realize();
         }
 
-        private void Realize()
+        public double[] Realize()
         {
-            //Build attraction map
-            aMap = new double[resolution];
+            //Instantiate maps
+            aMap = new double[resolution]; // Attraction Map
+            rMap = new double[resolution]; // Repulsion Map
 
-            //Set default values to 1
-            for (int i = 0; i < aMap.Length; i++)
+            //Find Max
+            double maxDist = 0d;
+            for (int i = 0; i < vectors.Count; i++) //TODO: This can be made signifficantly more efficient
             {
-                aMap[i] = double.PositiveInfinity;
-            }
-
-            //Build repulsion map
-            rMap = new double[resolution];
-            
-            //Set default values
-            for (int i = 0; i < rMap.Length; i++)
-            {
-                rMap[i] = double.PositiveInfinity;
+                if (General.getDistance(new Vector2(x, y), vectors[i].pos) > maxDist)
+                {
+                    maxDist = General.getDistance(new Vector2(x, y), vectors[i].pos);
+                }
             }
 
             //Calculate weight values for vectors
@@ -132,82 +128,24 @@ namespace Black_Magic
                 {
                     double dot = General.dot(
                             Math.PI * 2 / resolution * j,
-                            Math.Atan2(vectors[i].y - y, vectors[i].x - x));// * General.getDistance(new Vector2(0, 0), vectors[i].pos);
+                            Math.Atan2(vectors[i].y - y, vectors[i].x - x));
 
                     if (dot > 0)
                     {
-                        modMap[j] = Math.Min(
-                            modMap[j],
-                            dot * General.getDistance(new Vector2(0, 0), vectors[i].pos));
+                        modMap[j] = Math.Max(modMap[j], dot * maxDist / General.getDistance(new Vector2(x, y), vectors[i].pos));
                     }
-                    
                 }
             }
 
-            //Combine context maps
+            //Combine Context Maps
             for (int i = 0; i < contextMap.Length; i++)
             {
-                contextMap[i] = aMap[i];
+                contextMap[i] = aMap[i] > rMap[i] ? aMap[i] : 0;
             }
 
             contextMap = Normalize(contextMap);
-        }
 
-        private void Realize2()
-        {
-            //Build attraction and repulsion maps
-            double[] attractionWeights = new double[resolution];
-            //Set default value to 0
-            for (int i = 0; i < attractionWeights.Length; i++)
-            {
-                attractionWeights[i] = 1d;
-            }
-
-            double[] repulsionWeights = new double[resolution];
-            for (int i = 0; i < repulsionWeights.Length; i++)
-            {
-                repulsionWeights[i] = double.PositiveInfinity;
-            }
-
-            for (int j = 0; j < vectors.Count; j++)
-            {
-                double[] weightList = vectors[j].isAttraction ? attractionWeights : repulsionWeights;
-                for (int i = 0; i < weightList.Length; i++)
-                {
-                    if (vectors[j].isAttraction)
-                    {
-                        weightList[i] = Math.Max(
-                            weightList[i],
-                            General.dot(
-                                Math.PI * 2 / weightList.Length * i, 
-                                Math.Atan2(vectors[j].y - y, vectors[j].x - x)) * General.getDistance(new Vector2(0, 0), vectors[j].pos));
-                        continue;
-                    }
-                    weightList[i] = Math.Min(
-                        weightList[i],
-                        General.dot(
-                            Math.PI * 2 / weightList.Length * i, 
-                            Math.Atan2(vectors[j].y - y, vectors[j].x - x)) * General.getDistance(new Vector2(0, 0), vectors[j].pos));
-                }
-            }
-
-            for (int i = 0; i < contextMap.Length; i++)
-            {
-                contextMap[i] = (attractionWeights[i] > repulsionWeights[i] && repulsionWeights[i] > 0) ? 0 : attractionWeights[i];
-            }
-
-            contextMap = Normalize(contextMap);
-        }
-
-        //Sets all values that are infinity to 0 in a given double
-        private static double[] DeInfinity(double[] weights)
-        {
-            for (int i = 0; i < weights.Length; i++)
-            {
-                weights[i] = double.IsInfinity(weights[i]) ? 0 : weights[i];
-            }
-
-            return weights;
+            return contextMap;
         }
 
         //Normalizes an array of doubles so that all values range between 1 and 0
@@ -238,11 +176,13 @@ namespace Black_Magic
             return weights;
         }
 
+        //Adds vector to be accounted for
         public void AddVector(ContextVector cv)
         {
             vectors.Add(cv);
         }
         
+        //Removes vector to be accounted for
         public void DeleteVector(ContextVector cv)
         {
             vectors.Remove(cv);
