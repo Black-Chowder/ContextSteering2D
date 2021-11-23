@@ -19,7 +19,7 @@ namespace Black_Magic
         {
             entities = new List<Entity>();
 
-            entities.Add(new ContextSteering());
+            entities.Add(new ContextSteerTester());
             //Can add entities here
             //Person person = new Generic(100, 100);
             //Person.Add(person);
