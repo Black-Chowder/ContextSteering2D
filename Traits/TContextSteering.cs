@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using Black_Magic;
 
-namespace Black_Magic
+namespace ContextSteering2D
 {
     public class TContextSteering : Trait
     {
@@ -90,11 +91,6 @@ namespace Black_Magic
         public void SetVectors(List<ContextVector> vectors)
         {
             contextSteering.SetVectors(vectors);
-        }
-
-        public List<ContextVector> GetVectors()
-        {
-            return contextSteering.GetVectors();
         }
 
         //Draws Context Map

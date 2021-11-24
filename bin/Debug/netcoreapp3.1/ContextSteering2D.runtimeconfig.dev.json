@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\iabla\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\iabla\\.nuget\\packages"
+    ]
+  }
+}

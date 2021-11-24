@@ -7,8 +7,9 @@ using System.Text;
 using Spooky_Stealth.Utils;
 using Black_Magic.Utils;
 using System.Diagnostics;
+using Black_Magic;
 
-namespace Black_Magic
+namespace ContextSteering2D
 {
     public class ContextSteerTester : Entity
     {

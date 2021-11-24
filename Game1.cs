@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Black_Magic;
 using Spooky_Stealth.Utils;
 
-namespace ContextSteering
+namespace ContextSteering2D
 {
     public class Game1 : Game
     {

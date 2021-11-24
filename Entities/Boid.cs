@@ -8,7 +8,7 @@ using Black_Magic.Utils;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Black_Magic
+namespace ContextSteering2D
 {
     public class Boid : Entity
     {

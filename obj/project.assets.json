@@ -179,11 +179,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\C#\\ContextSteering\\ContextSteering.csproj",
-      "projectName": "ContextSteering",
-      "projectPath": "D:\\Programming\\C#\\ContextSteering\\ContextSteering.csproj",
+      "projectUniqueName": "C:\\Users\\iabla\\Documents\\GitHub\\ContextSteering2D\\ContextSteering2D.csproj",
+      "projectName": "ContextSteering2D",
+      "projectPath": "C:\\Users\\iabla\\Documents\\GitHub\\ContextSteering2D\\ContextSteering2D.csproj",
       "packagesPath": "C:\\Users\\iabla\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\C#\\ContextSteering\\obj\\",
+      "outputPath": "C:\\Users\\iabla\\Documents\\GitHub\\ContextSteering2D\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\iabla\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -236,7 +236,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

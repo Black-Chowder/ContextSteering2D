@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Spooky_Stealth.Utils;
 using System.Diagnostics;
 
-namespace Black_Magic
+namespace ContextSteering2D
 {
     //Class to handle attraction and repulsion nodes
     public class ContextVector

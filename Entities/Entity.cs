@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Spooky_Stealth.Entities;
 using System.Diagnostics;
 using Black_Magic.Utils;
+using ContextSteering2D;
 
 namespace Black_Magic
 {

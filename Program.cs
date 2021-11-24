@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ContextSteering
+namespace ContextSteering2D
 {
     public static class Program
     {
