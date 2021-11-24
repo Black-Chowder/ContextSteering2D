@@ -70,6 +70,16 @@ namespace Black_Magic
             return Realize();
         }
 
+        //Getter for angle
+        //TODO: Change so that don't have to re-calculate GetAngle if contextMap hasn't changed since last call
+        public double angle
+        {
+            get
+            {
+                return GetAngle();
+            }
+        }
+
         //Variable to describe the desire / drive the context map has to reach a certian point
         public double drive { get; private set; } = 0d; 
 
@@ -87,7 +97,7 @@ namespace Black_Magic
         }
 
         //Fills Out The Context Map According To The Given Context Vectors
-        public double[] Realize() //TODO: Account for when there are not valid attraction vectors, only repulsion vectors
+        public double[] Realize()
         {
             //Instantiate maps
             double[] aMap = new double[resolution]; // Attraction Map
@@ -128,8 +138,44 @@ namespace Black_Magic
             }
 
             //Combine Context Maps
+            bool onlyZero = true; //Stores if attraction map is only full of zeros
             for (int i = 0; i < contextMap.Length; i++)
-                contextMap[i] = aMap[i] > rMap[i] ? aMap[i] : 0;
+            {
+                if (aMap[i] > rMap[i])
+                {
+                    contextMap[i] = aMap[i];
+                    onlyZero = false;
+                    continue;
+                }
+                contextMap[i] = 0;
+            }
+
+            //If context map is full of zeros, find most prefered vector
+            if (onlyZero)
+            {
+                //Find max and min index
+                int maxIndex = 0;
+                int minIndex = 0;
+                for (int i = 1; i < resolution; i++)
+                {
+                    //Finding min
+                    if (rMap[i] < rMap[minIndex])
+                        minIndex = i;
+
+                    //Finding max
+                    if (rMap[i] > rMap[maxIndex])
+                        maxIndex = i;
+                }
+
+                //If opposite to value of max index is less than value of min index, set opposite to value of max index
+                if (rMap[(maxIndex + resolution / 2) % resolution] <= rMap[minIndex])
+                    contextMap[(maxIndex + resolution / 2) % resolution] = rMap[maxIndex];
+
+                //If the above is not the case, set min index value to value of max index
+                else
+                    contextMap[minIndex] = rMap[maxIndex];
+                
+            }
 
             //Normalize context map so that values range between 1 and 0
             contextMap = Normalize(contextMap);
@@ -156,8 +202,14 @@ namespace Black_Magic
             vectors.Clear();
         }
 
+        //Sets vectors equal to a list
+        public void SetVectors(List<ContextVector> vectors)
+        {
+            this.vectors = vectors;
+        }
+
         //Debugging method to get attraction map
-        public double[] GetAttractionMap() //TODO: Test and whatnot!!!
+        public double[] GetAttractionMap() //TODO: Make main method use this method
         {
             double[] map = new double[resolution];
 
@@ -240,6 +292,25 @@ namespace Black_Magic
             }
 
             return Normalize(map);
+        }
+
+        //Gets the angle that the context map is telling it to go
+        private double GetAngle()
+        {
+            //TODO: Change code to be more accurate without increase in resolution
+
+            int angleIndex = 0;
+            for (int i = 1; i < contextMap.Length; i++)
+            {
+                if (contextMap[i] > contextMap[angleIndex])
+                {
+                    angleIndex = i;
+                }
+            }
+
+            double angle = Math.PI * 2 * angleIndex / resolution;
+
+            return angle;
         }
 
         //Gets distance between self and given vector

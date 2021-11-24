@@ -20,26 +20,18 @@ namespace Black_Magic
             entities = new List<Entity>();
 
             entities.Add(new ContextSteerTester());
-            //Can add entities here
-            //Person person = new Generic(100, 100);
-            //Person.Add(person);
+
+            Random rand = new Random();
             
-            /*
-            Person.Add(new Generic(500, 500));
-            entities.Add(new GhostPlayer(0, 0));
+            
+            //Spawn boid with visable context map
+            entities.Add(new Boid(200, 200, true));
 
-            //Wall Test
-            byte l = 1;
-            byte o = 0;
-            byte[,] rectPoints = new byte[,]
+            //Spawn other boids
+            for (int i = 0; i < 30; i++)
             {
-                {l, l, l, l },
-                {l, o, l, o },
-                {l, l, l, l }
-            };
-
-
-            entities.AddRange(Wall.CreateWall(50, 50, rectPoints));*/
+                entities.Add(new Boid(rand.Next(0, 400), rand.Next(0, 400)));
+            }
             
         }
 
@@ -49,7 +41,6 @@ namespace Black_Magic
             {
                 entities[i].Update(gameTime);
             }
-            //Console.WriteLine("time mod = " + entities[0].tm);
         }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
@@ -59,29 +50,10 @@ namespace Black_Magic
                 entities[i].Draw(spriteBatch, graphicsDevice);
             }
         }
-
-        //Set time modifier
-        public static void setTm(float set)
-        {
-            for (int i = 0; i < entities.Count; i++)
-            {
-                entities[i].tm = set;
-            }
-        }
-
-        //Modify/change time modifier by mod
-        public static void modTm(float mod)
-        {
-            for (int i = 0; i < entities.Count; i++)
-            {
-                if (entities[i].tm + mod >= 0) entities[i].tm += mod;
-                else entities[i].tm = 0;
-            }
-        }
     }
     public abstract class Entity
     {
-        private List<Trait> traits; //TODO: Look into if traits should be priority queue
+        private List<Trait> traits;
         
         public string classId { get; protected set; }
 
@@ -96,8 +68,6 @@ namespace Black_Magic
         public float height;
 
         public bool isVisable = true;
-
-        public float tm = 1f;
 
 
         public Entity(string classId, float x, float y)

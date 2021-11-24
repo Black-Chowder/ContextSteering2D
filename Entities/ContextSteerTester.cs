@@ -26,7 +26,7 @@ namespace Black_Magic
         private float vectorRadius = 25f;
 
         private const string id = "contextSteerTester";
-        public ContextSteerTester(float x = 150, float y = 250) : base(id, x, y)
+        public ContextSteerTester(float x = 600, float y = 150) : base(id, x, y)
         {
             contextSteering = new TContextSteering(this);
             addTrait(contextSteering);
@@ -60,8 +60,10 @@ namespace Black_Magic
                 vectors.Clear();
             }
 
-
             base.Update(gameTime);
+
+            dx = 0;
+            dy = 0;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
@@ -71,7 +73,7 @@ namespace Black_Magic
             backCirc ??= General.createCircleText(graphicsDevice, (int)radius);
             inCirc ??= General.createCircleText(graphicsDevice, (int)radius - circWidth);
 
-            //Drawing
+            //Draw background circle
             spriteBatch.Draw(backCirc,
                 new Vector2(x, y),
                 new Rectangle(0, 0, radius, radius),
@@ -91,10 +93,16 @@ namespace Black_Magic
                 SpriteEffects.None,
                 0f);
 
-
+            //Draw main context map
+            contextSteering.drawRadius = radius;
+            contextSteering.weightWidth = 5;
             contextSteering.DrawContextMap(spriteBatch);
-            contextSteering.DrawAttractionMap(spriteBatch, (int)x + radius, (int)y);
-            contextSteering.DrawRepulsionMap(spriteBatch, (int)x + radius * 2, (int)y);
+
+            //Draw attraction and repulsion maps
+            contextSteering.drawRadius = radius / 2;
+            contextSteering.weightWidth = 2;
+            contextSteering.DrawAttractionMap(spriteBatch, (int)(x - radius/3), (int)y + radius);
+            contextSteering.DrawRepulsionMap(spriteBatch, (int)(x + radius/3), (int)y + radius);
 
             //Draw Attraction Vectors
             vectorText ??= General.createCircleText(graphicsDevice, (int)vectorRadius);

@@ -10,11 +10,16 @@ namespace Black_Magic
 {
     public class TContextSteering : Trait
     {
+        //Getters and setters for position of context steering
         public float x
         {
             get
             {
                 return contextSteering.x;
+            }
+            set
+            {
+                contextSteering.x = value;
             }
         }
         public float y
@@ -23,27 +28,37 @@ namespace Black_Magic
             {
                 return contextSteering.y;
             }
+            set
+            {
+                contextSteering.y = value;
+            }
+        }
+
+        //Getter for angle
+        public double angle
+        {
+            get
+            {
+                return contextSteering.angle;
+            }
         }
 
         //Stores context steering object
         private ContextSteering contextSteering;
 
-        public bool followParent = false;
-
-        //Texture variables
-        static Texture2D weightTexture;
-        static Texture2D vectorTexture;
+        //Setting for if context steering center should automatically follow the parent entity
+        public bool followParent { get; set; }
 
         //Draw Settings
-        private int drawRadius = 250;
-        private int weightWidth = 5;
+        public int drawRadius = 250;
+        public int weightWidth = 5;
 
         private const string id = "contextString";
-        public TContextSteering(Entity parent) : base(id, parent)
+        public TContextSteering(Entity parent, bool followParent = true) : base(id, parent)
         {
+            this.followParent = followParent;
+
             contextSteering = new ContextSteering(parent.x, parent.y);
-            Debug.WriteLine("parent x = " + parent.x);
-            Debug.WriteLine("Context Steering x = " + contextSteering.x);
         }
 
         public override void Update(GameTime gameTime)
@@ -72,6 +87,16 @@ namespace Black_Magic
             contextSteering.ClearVectors();
         }
 
+        public void SetVectors(List<ContextVector> vectors)
+        {
+            contextSteering.SetVectors(vectors);
+        }
+
+        public List<ContextVector> GetVectors()
+        {
+            return contextSteering.GetVectors();
+        }
+
         //Draws Context Map
         public void DrawContextMap(SpriteBatch spriteBatch)
         {
@@ -79,9 +104,6 @@ namespace Black_Magic
         }
         public void DrawContextMap(SpriteBatch spriteBatch, float x, float y)
         {
-            //Generate texture if needed
-            weightTexture ??= General.createTexture(spriteBatch.GraphicsDevice);
-
             double[] contextMap = contextSteering.GetContextMap();
             for (int i = 0; i < contextMap.Length; i++)
             {
@@ -96,9 +118,6 @@ namespace Black_Magic
         }
         public void DrawAttractionMap(SpriteBatch spriteBatch, float x, float y)
         {
-            //Generate texture if needed
-            weightTexture ??= General.createTexture(spriteBatch.GraphicsDevice);
-
             double[] contextMap = contextSteering.GetAttractionMap();
             for (int i = 0; i < contextMap.Length; i++)
             {
@@ -113,9 +132,6 @@ namespace Black_Magic
         }
         public void DrawRepulsionMap(SpriteBatch spriteBatch, float x, float y)
         {
-            //Generate texture if needed
-            weightTexture ??= General.createTexture(spriteBatch.GraphicsDevice);
-
             double[] contextMap = contextSteering.GetRepulsionMap();
             for (int i = 0; i < contextMap.Length; i++)
             {
