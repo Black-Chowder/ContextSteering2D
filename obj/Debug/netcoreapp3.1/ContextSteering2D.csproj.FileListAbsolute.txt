@@ -20,3 +20,4 @@ C:\Users\iabla\Documents\GitHub\ContextSteering2D\obj\Debug\netcoreapp3.1\Contex
 C:\Users\iabla\Documents\GitHub\ContextSteering2D\obj\Debug\netcoreapp3.1\ContextSteering2D.dll
 C:\Users\iabla\Documents\GitHub\ContextSteering2D\obj\Debug\netcoreapp3.1\ContextSteering2D.pdb
 C:\Users\iabla\Documents\GitHub\ContextSteering2D\obj\Debug\netcoreapp3.1\ContextSteering2D.genruntimeconfig.cache
+C:\Users\iabla\Documents\GitHub\ContextSteering2D\obj\Debug\netcoreapp3.1\ContextSteering2D.csprojAssemblyReference.cache

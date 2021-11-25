@@ -17,6 +17,9 @@ namespace ContextSteering2D
         public float x { get; set; }
         public float y { get; set; }
 
+        //Stores strength of the vector
+        public double strength { get; set; } = 1d;
+
         //Stores if vector is attraction vector or repulsion vector
         public bool isAttraction { get; set; }
 
@@ -133,7 +136,7 @@ namespace ContextSteering2D
                     double dot = Dot(Math.PI * 2 / resolution * j, vectorAtan);
 
                     //Add applicable weight to map position
-                    if (dot > 0) modMap[j] = Math.Max(modMap[j], dot * maxDist / vectorDistances[i]);
+                    if (dot > 0) modMap[j] = Math.Max(modMap[j], dot * maxDist / vectorDistances[i] * vectors[i].strength);
                 }
             }
 
@@ -244,7 +247,7 @@ namespace ContextSteering2D
                     double dot = Dot(Math.PI * 2 / resolution * j, vectorAtan);
 
                     //Add applicable weight to map position
-                    if (dot > 0) map[j] = Math.Max(map[j], dot * maxDist / vectorDistances[i]);
+                    if (dot > 0) map[j] = Math.Max(map[j], dot * maxDist / vectorDistances[i] * vectors[i].strength);
                 }
             }
 
@@ -287,7 +290,7 @@ namespace ContextSteering2D
                     double dot = Dot(Math.PI * 2 / resolution * j, vectorAtan);
 
                     //Add applicable weight to map position
-                    if (dot > 0) map[j] = Math.Max(map[j], dot * maxDist / vectorDistances[i]);
+                    if (dot > 0) map[j] = Math.Max(map[j], dot * maxDist / vectorDistances[i] * vectors[i].strength);
                 }
             }
 
