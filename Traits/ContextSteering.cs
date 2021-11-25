@@ -75,13 +75,7 @@ namespace ContextSteering2D
 
         //Getter for angle
         //TODO: Change so that don't have to re-calculate GetAngle if contextMap hasn't changed since last call
-        public double angle
-        {
-            get
-            {
-                return GetAngle();
-            }
-        }
+        public double angle { get; private set; }
 
         //Variable to describe the desire / drive the context map has to reach a certian point
         public double drive { get; private set; } = 0d; 
@@ -172,16 +166,31 @@ namespace ContextSteering2D
 
                 //If opposite to value of max index is less than value of min index, set opposite to value of max index
                 if (rMap[(maxIndex + resolution / 2) % resolution] <= rMap[minIndex])
-                    contextMap[(maxIndex + resolution / 2) % resolution] = rMap[maxIndex];
+                {
+                    int oppositeIndex = (maxIndex + resolution / 2) % resolution;
+                    contextMap[oppositeIndex] = rMap[maxIndex];
+
+                    //Set angle (know what angle is because just set highest weight)
+                    angle = indexToAngle(oppositeIndex);
+                }
+
 
                 //If the above is not the case, set min index value to value of max index
                 else
+                {
                     contextMap[minIndex] = rMap[maxIndex];
+
+                    //Set angle (how what angle is because just set highest weight)
+                    angle = indexToAngle(minIndex);
+                }
                 
             }
 
             //Normalize context map so that values range between 1 and 0
             contextMap = Normalize(contextMap);
+
+            //Set Angle (only need to set angle when !onlyZero because when onlyZero, it sets its own angle without extra loop)
+            if (!onlyZero) angle = GetAngle();
 
             //Return the context map generated
             return contextMap;
@@ -311,9 +320,15 @@ namespace ContextSteering2D
                 }
             }
 
-            double angle = Math.PI * 2 * angleIndex / resolution;
+            double angle = indexToAngle(angleIndex);
 
             return angle;
+        }
+
+        //Takes in an index value and then returns the corresponding angle
+        private double indexToAngle(int index)
+        {
+            return Math.PI * 2 * index / resolution;
         }
 
         //Gets distance between self and given vector
