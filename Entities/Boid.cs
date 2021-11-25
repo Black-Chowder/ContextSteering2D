@@ -32,6 +32,8 @@ namespace ContextSteering2D
 
         public float range = 200;
 
+        private ContextVector cohesionVector;
+
         private const string id = "boid";
         public Boid(float x, float y, bool debug = false) : base(id, x, y)
         {
@@ -54,21 +56,54 @@ namespace ContextSteering2D
 
         public override void Update(GameTime gameTime)
         {
-
-            //Set context vectors
-            contextSteering.ClearVectors();
-            foreach (ContextVector cv in vectors)
-            {
-                //Don't include self in vector calculations
-                if (cv != contextVector)
-                {
-                    contextSteering.AddVector(cv);
-                }
-            }
-
             //Update context vector position representation
             contextVector.x = x;
             contextVector.y = y;
+
+            //Store vectors in range
+            List<ContextVector> vectorsInRange = new List<ContextVector>();
+
+            //Begin setting context vectors
+            contextSteering.ClearVectors();
+
+
+            //Separation Logic
+            //Add repelant context vectors for other boids
+            foreach (ContextVector cv in vectors)
+            {
+                //Don't include self in vector calculations
+                if (cv != contextVector && General.getDistance(contextVector.pos, cv.pos) <= range)
+                {
+                    contextSteering.AddVector(cv);
+                    vectorsInRange.Add(cv);
+                }
+            }
+
+            //Alignment Logic
+            //TODO
+
+            //Cohesion Logic
+            //Calculate average position among context vectors in range
+            float avgX = 0;
+            float avgY = 0;
+            foreach (ContextVector cv in vectorsInRange)
+            {
+                avgX += cv.x;
+                avgY += cv.y;
+            }
+            avgX /= vectorsInRange.Count;
+            avgY /= vectorsInRange.Count;
+
+            //Set cohesion vector equal to gotten average
+            cohesionVector = new ContextVector(avgX, avgY, true);
+
+            //Set strength so that going to this vector is more heavily desired than fleeing other boids
+            //Makes sure this behavior isn't "overwhelmed" by the amount of repeling context vectors
+            cohesionVector.strength = vectorsInRange.Count / 9d; //Note that constant is chosen arbitrarily to "look good"
+
+            //Add cohesion vector to context steering's list of vectors
+            contextSteering.AddVector(cohesionVector);
+
 
             //Move delta pos according to angle
             angle += angle - contextSteering.angle < 0 ? angleSpeed : -angleSpeed;
@@ -119,6 +154,17 @@ namespace ContextSteering2D
             {
                 contextSteering.DrawContextMap(spriteBatch, x, y);
                 contextSteering.DrawRepulsionMap(spriteBatch);
+
+                //Draw Cohesion Vector
+                spriteBatch.Draw(texture,
+                    cohesionVector.pos,
+                    new Rectangle(0, 0, 1, 1),
+                    Color.Green,
+                    0,
+                    new Vector2(0, 0),
+                    size,
+                    SpriteEffects.None,
+                    0);
             }
         }
     }
