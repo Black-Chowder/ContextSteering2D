@@ -30,7 +30,6 @@ namespace ContextSteering2D
         public ContextSteerTester(float x = 600, float y = 150) : base(id, x, y)
         {
             contextSteering = new TContextSteering(this);
-            addTrait(contextSteering);
 
             vectors = new List<ContextVector>();
         }
@@ -42,29 +41,33 @@ namespace ContextSteering2D
             double angle = Math.Atan2(mouse.Y - y, mouse.X - x);
 
             //Create New Vectors
+            bool vectorsChanged = false; //Boolean to store if number of vectors changed
             if (ClickHandler.leftClicked)
             {
                 ContextVector newVector = new ContextVector(mouse.X, mouse.Y, true);
                 contextSteering.AddVector(newVector);
                 vectors.Add(newVector);
+                vectorsChanged = true;
             }
             if (ClickHandler.rightClicked)
             {
                 ContextVector newVector = new ContextVector(mouse.X, mouse.Y, false);
                 contextSteering.AddVector(newVector);
                 vectors.Add(newVector);
+                vectorsChanged = true;
             }
 
             if (ClickHandler.IsClicked(Keys.R))
             {
                 contextSteering.ClearVectors();
                 vectors.Clear();
+                vectorsChanged = true;
             }
 
-            base.Update(gameTime);
+            //Update steering only if context vectors changed
+            if (vectorsChanged) contextSteering.Update(gameTime);
 
-            dx = 0;
-            dy = 0;
+            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
