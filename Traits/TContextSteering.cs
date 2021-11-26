@@ -70,7 +70,7 @@ namespace ContextSteering2D
                 contextSteering.y = (int)parent.y;
             }
 
-            contextSteering.Realize();
+            contextSteering.UpdateMap();
         }
 
         public void AddVector(ContextVector cv)

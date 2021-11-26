@@ -70,7 +70,7 @@ namespace ContextSteering2D
         //Getter for map
         public double[] GetContextMap()
         {
-            return Realize();
+            return UpdateMap();
         }
 
         //Getter for angle
@@ -94,7 +94,7 @@ namespace ContextSteering2D
         }
 
         //Fills Out The Context Map According To The Given Context Vectors
-        public double[] Realize()
+        public double[] UpdateMap()
         {
             //Instantiate maps
             double[] aMap = new double[resolution]; // Attraction Map
