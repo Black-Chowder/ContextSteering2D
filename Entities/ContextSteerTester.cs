@@ -57,6 +57,15 @@ namespace ContextSteering2D
                 vectorsChanged = true;
             }
 
+            if (ClickHandler.IsClicked(Keys.Space))
+            {
+                ContextVector newVector = new RelativeVector(contextSteering.GetContextSteering(), MathF.Atan2(mouse.Y - y, mouse.X - x), radius / 2);
+                Debug.WriteLine(newVector.x);
+                contextSteering.AddVector(newVector);
+                vectors.Add(newVector);
+                vectorsChanged = true;
+            }
+
             if (ClickHandler.IsClicked(Keys.R))
             {
                 contextSteering.ClearVectors();

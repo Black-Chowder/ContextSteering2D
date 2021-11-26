@@ -14,8 +14,8 @@ namespace ContextSteering2D
     public class ContextVector
     {
         //Actual storage of position
-        public float x { get; set; }
-        public float y { get; set; }
+        public virtual float x { get; set; }
+        public virtual float y { get; set; }
 
         //Stores strength of the vector
         public double strength { get; set; } = 1d;
@@ -51,6 +51,44 @@ namespace ContextSteering2D
         {
             this.pos = vector;
         }
+    }
+
+    public class RelativeVector : ContextVector
+    {
+        public override float x
+        {
+            get
+            {
+                return parent.x + MathF.Cos(angle) * distance;
+            }
+        }
+
+        public override float y
+        {
+            get
+            {
+                return parent.y + MathF.Sin(angle) * distance;
+            }
+        }
+
+        public float angle { get; set; }
+        public float distance { get; set; }
+
+        private ContextSteering parent;
+
+        public RelativeVector(ContextSteering relativeTo, float angle, float distance, bool isAttraction = true)
+            : base(MathF.Cos(angle) * distance, MathF.Sin(angle) * distance, isAttraction)
+        {
+            parent = relativeTo;
+
+            this.angle = angle;
+            this.distance = distance;
+
+            this.isAttraction = isAttraction;
+        }
+
+        //Create relative vector from normal context steering vector
+        //TODO
     }
 
     public class ContextSteering

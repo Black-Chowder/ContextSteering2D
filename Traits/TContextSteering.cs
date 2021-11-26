@@ -93,6 +93,11 @@ namespace ContextSteering2D
             contextSteering.SetVectors(vectors);
         }
 
+        public ContextSteering GetContextSteering()
+        {
+            return contextSteering;
+        }
+
         //Draws Context Map
         public void DrawContextMap(SpriteBatch spriteBatch)
         {
