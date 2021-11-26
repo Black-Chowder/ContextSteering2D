@@ -131,6 +131,18 @@ namespace ContextSteering2D
                     SpriteEffects.None,
                     .1f);
             }
+
+            //Draw Angle Indicator
+            spriteBatch.Draw(vectorText,
+                new Vector2(x + MathF.Cos((float)contextSteering.angle) * radius / 2, y + MathF.Sin((float)contextSteering.angle) * radius / 2),
+                new Rectangle(0, 0, (int)vectorRadius, (int)vectorRadius),
+                Color.Blue,
+                0f,
+                new Vector2(vectorRadius / 2, vectorRadius / 2),
+                .75f,
+                SpriteEffects.None,
+                .2f);
+
         }
     }
 }

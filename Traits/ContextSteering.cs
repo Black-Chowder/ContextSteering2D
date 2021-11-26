@@ -39,8 +39,6 @@ namespace ContextSteering2D
             }
         }
 
-        //TODO: Add ability to create context vector with angle and weight
-
         public ContextVector(float x, float y, bool isAttraction = true)
         {
             this.x = x;
@@ -53,6 +51,7 @@ namespace ContextSteering2D
         }
     }
 
+    //Creates a context vector that is always a set angle and distance from a given context vector
     public class RelativeVector : ContextVector
     {
         public override float x
@@ -91,6 +90,7 @@ namespace ContextSteering2D
         //TODO
     }
 
+    //Main class for calculating context steering
     public class ContextSteering
     {
         //Constants
