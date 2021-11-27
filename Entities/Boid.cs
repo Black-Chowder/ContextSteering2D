@@ -13,7 +13,7 @@ namespace ContextSteering2D
     public class Boid : Entity
     {
         public static List<ContextVector> vectors;
-        //public static List<Boid> boids;
+        public static List<Boid> boids;
 
         TContextSteering contextSteering;
         public ContextVector contextVector;
@@ -33,6 +33,7 @@ namespace ContextSteering2D
         public float range = 200;
 
         private ContextVector cohesionVector;
+        private RelativeVector alignmentVector;
 
         private const string id = "boid";
         public Boid(float x, float y, bool debug = false) : base(id, x, y)
@@ -42,6 +43,9 @@ namespace ContextSteering2D
 
             //Establish boid list
             vectors ??= new List<ContextVector>();
+            boids ??= new List<Boid>();
+
+            boids.Add(this);
 
             contextVector = new ContextVector(x, y, false);
             vectors.Add(contextVector);
@@ -80,7 +84,25 @@ namespace ContextSteering2D
             }
 
             //Alignment Logic
-            //TODO
+            //Calculate average angle of nearby boids
+            double avgAngle = angle;
+            int boidInRangeCount = 0;
+            foreach (Boid boid in boids)
+            {
+                if (boid != this && General.getDistance(contextVector.pos, new Vector2(boid.x, boid.y)) <= range)
+                {
+                    avgAngle += boid.angle;
+                    boidInRangeCount++;
+                }
+            }
+            avgAngle /= boidInRangeCount;
+
+            //Instantiate alignment vector as relative vector
+            alignmentVector = new RelativeVector(contextSteering.GetContextSteering(), (float)avgAngle, range, true);
+
+            //Add alignment vector to context steering's list of vectors
+            contextSteering.AddVector(alignmentVector);
+
 
             //Cohesion Logic
             //Calculate average position among context vectors in range
@@ -154,6 +176,9 @@ namespace ContextSteering2D
             {
                 contextSteering.DrawContextMap(spriteBatch, x, y);
                 contextSteering.DrawRepulsionMap(spriteBatch);
+
+                //Draw Alignment Vector
+                General.DrawLine(spriteBatch, alignmentVector.pos, new Vector2(x, y), Color.Blue, 1);
 
                 //Draw Cohesion Vector
                 spriteBatch.Draw(texture,
