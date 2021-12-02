@@ -104,5 +104,56 @@ This parameter changes how many weight values are calculated when constructing t
 
 In most situations, 16 will serve fine.
 
+### See Attraction And Repulsion Maps
+
+The raw attraction and repulsion maps can be gotten as an array of doubles using these methods 
+```cs
+cts.GetAttractionMap(); //Returns double[]
+cts.GetRepulsionMap();  //Returns double[]
+```
+
+
 # Example Build
  
+## Boid Simulation
+![Boid Simulation Display](Documentation/Boids.jpg)
+
+On the left is the boid simulation.  By default, there is a debug boid colored blue.  Its attraction and repulsion maps are drawn on its position at all times.
+
+Boids have three main behaviors:
+- Separation
+  - Each boid is processed as a repulsion vector
+  - Generates repulsion map
+- Alignment
+  - The average boid angle is gotten and a relative attraction vector is created to represent this angle
+  - Represented by blue line
+- Cohesion
+  - The average boid position is gotten and an attraction vector with increased strength is used to represent this desire
+  - Represented by green dot.  Generates attraction map
+
+## Static Context Map
+
+![Context Map Display](Documentation/RepulsionBlock.jpg)
+
+On the right is a display of the context map.  In the example build, this is interactive.
+
+> Left click to create attraction vector
+> Right click to create repulsion vector
+> Press SPACE to create relative attraction vector
+> Press R to clear all created vectors
+
+What is displayed in the white circle is the fully generated and accounted for context map.
+
+On the bottom right, the attraction map is displayed
+
+On the bottom left, the repulsion map is displayed
+
+
+
+
+
+
+
+
+
+
