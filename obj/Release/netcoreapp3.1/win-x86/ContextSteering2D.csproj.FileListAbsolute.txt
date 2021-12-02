@@ -1,0 +1,17 @@
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\ContextSteering2D.exe
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\ContextSteering2D.deps.json
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\ContextSteering2D.runtimeconfig.json
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\ContextSteering2D.runtimeconfig.dev.json
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\ContextSteering2D.dll
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\ContextSteering2D.pdb
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\MonoGame.Framework.dll
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\SDL2.dll
+D:\Programming\C#\ContextSteering\bin\Release\netcoreapp3.1\win-x86\soft_oal.dll
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.AssemblyInfoInputs.cache
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.AssemblyInfo.cs
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.csproj.CoreCompileInputs.cache
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.csproj.CopyComplete
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.dll
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.pdb
+D:\Programming\C#\ContextSteering\obj\Release\netcoreapp3.1\win-x86\ContextSteering2D.genruntimeconfig.cache

@@ -1,0 +1,8 @@
+D:\Programming\C#\ContextSteering\Example Builds\ContextSteering2D.exe
+D:\Programming\C#\ContextSteering\Example Builds\ContextSteering2D.dll
+D:\Programming\C#\ContextSteering\Example Builds\ContextSteering2D.deps.json
+D:\Programming\C#\ContextSteering\Example Builds\ContextSteering2D.runtimeconfig.json
+D:\Programming\C#\ContextSteering\Example Builds\ContextSteering2D.pdb
+D:\Programming\C#\ContextSteering\Example Builds\MonoGame.Framework.dll
+D:\Programming\C#\ContextSteering\Example Builds\SDL2.dll
+D:\Programming\C#\ContextSteering\Example Builds\soft_oal.dll

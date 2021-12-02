@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kirFdzGPcmZShxj70GGVNdfqjVSZdNfpwKhCJuOlC85FZANka4/8qn/yZ8FCwcEkpYJEVUa6cU56cpvB4zb08g==",
+  "success": true,
+  "projectFilePath": "D:\\Programming\\C#\\ContextSteering\\ContextSteering2D.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\iabla\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\iabla\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+  ],
+  "logs": []
+}
