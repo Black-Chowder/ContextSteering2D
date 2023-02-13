@@ -15,11 +15,6 @@ http://www.gameaipro.com/GameAIPro2/GameAIPro2_Chapter18_Context_Steering_Behavi
 
 The main file is called ContextSteering.cs and is located in the main directory.
 
-Dependancies:
-- System
-- System.Collections.Generic
-- Microsoft.Xna.Framework
-
 ## Using ContextSteering2D
 
 ### Constructor
